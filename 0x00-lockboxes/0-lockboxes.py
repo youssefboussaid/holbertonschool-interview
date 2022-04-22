@@ -3,6 +3,7 @@
     Method that determines if all the boxes can be opened.
 """
 
+
 def canUnlockAll(boxes):
     """
         Return True if ALL boxes can be opened, else return False.
@@ -18,4 +19,3 @@ def canUnlockAll(boxes):
         if i not in list_of_keys:
             return False
     return True
-        
