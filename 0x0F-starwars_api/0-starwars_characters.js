@@ -8,7 +8,7 @@ request(url, async (err, response, body) => {
 	if (err) {
 		console.log(err);
 	}
-	for(const charId of JSON.parse(body).characters) {
+	for (const charId of JSON.parse(body).characters) {
 		await new Promise((resolve, reject) => {
 			request(charId , (err, response, body) => {
 				if (err) {
