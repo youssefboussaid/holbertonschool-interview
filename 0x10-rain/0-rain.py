@@ -5,12 +5,18 @@
 
 
 def rain(walls):
+    """
+        Return the number of trapped water
+    """
 
     l, r = 0, len(walls) - 1
 
     Maxleft, Maxright = walls[l], walls[r]
 
     res = 0
+
+    if len(walls) == 0:
+        return 0
 
     while l < r:
         if Maxleft < Maxright:
