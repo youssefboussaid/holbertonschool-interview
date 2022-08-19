@@ -4,6 +4,9 @@ list
 """
 
 
+from errno import WSAEDQUOT
+
+
 def rain(walls):
 	"""
 	Args:
