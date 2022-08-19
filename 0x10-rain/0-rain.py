@@ -11,7 +11,6 @@ def rain(walls):
     Returns:
         return 0 if empty.
     """
-
     l, r = 0, len(walls) - 1
 
     Maxleft, Maxright = walls[l], walls[r]
