@@ -18,7 +18,7 @@ def rain(walls):
     res = 0
 
     if not walls:
-        retunr 0
+        return 0
 
     while l < r:
         if Maxleft < Maxright:
