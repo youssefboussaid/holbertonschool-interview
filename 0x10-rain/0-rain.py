@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+    Method that determines the number of trapped water
+"""
 
 
 def rain(walls):
