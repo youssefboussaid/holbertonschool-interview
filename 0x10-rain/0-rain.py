@@ -6,7 +6,10 @@
 
 def rain(walls):
     """
-        Return the number of trapped water
+    Args:
+        walls - is a list of non-negative integers.
+    Returns:
+        return 0 if empty.
     """
 
     l, r = 0, len(walls) - 1
