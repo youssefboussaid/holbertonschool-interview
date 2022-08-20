@@ -12,10 +12,11 @@ avl_t *ArrayToAVL(int *array, int start, int end, avl_t *parent)
 {
 
 	avl_t *root;
+	int mid;
 
 	if (start > end)
 		return (NULL);
-	int mid = (start + end) / 2;
+	mid = (start + end) / 2;
 
 	root = malloc(sizeof(avl_t));
 	if (root == NULL)
