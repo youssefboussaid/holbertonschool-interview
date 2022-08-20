@@ -9,7 +9,6 @@
 * @parent: the parent of the node
 * Return: AVL tree
 */
-*/
 
 
 avl_t *ArrayToAVL(int *array, int start, int end, avl_t *parent)
