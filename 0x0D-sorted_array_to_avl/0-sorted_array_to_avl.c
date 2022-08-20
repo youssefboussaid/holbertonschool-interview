@@ -1,5 +1,4 @@
 #include "binary_trees.h"
-
 /**
 * ArrayToAVL - Stores recursively each level in an array of strings
 *
@@ -9,8 +8,6 @@
 * @parent: the parent of the node
 * Return: AVL tree
 */
-
-
 avl_t *ArrayToAVL(int *array, int start, int end, avl_t *parent)
 {
 
@@ -29,7 +26,6 @@ avl_t *ArrayToAVL(int *array, int start, int end, avl_t *parent)
 	root->right = ArrayToAVL(array, mid + 1, end, root);
 	return (root);
 }
-
 /**
  * sorted_array_to_avl - Prints a binary tree
  *
@@ -37,12 +33,9 @@ avl_t *ArrayToAVL(int *array, int start, int end, avl_t *parent)
  * @size: size of the array
  * Return: AVL tree
  */
-
-
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
 	if (array == NULL)
 		return (NULL);
 	return (ArrayToAVL(array, 0, size - 1, NULL));
 }
-
