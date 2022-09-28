@@ -1,18 +1,23 @@
-def rotate_2d_matrix(matrix):
+#!/usr/bin/python3
+"""
+rotate 2D matrix module
+"""
 
-    N = len(matrix)
- 
-    # Transpose the matrixrix
-    for i in range(N):
-        for j in range(i):
-            temp = matrix[i][j]
-            matrix[i][j] = matrix[j][i]
-            matrix[j][i] = temp
- 
-    # swap columns
-    for i in range(N):
-        for j in range(N // 2):
-            temp = matrix[i][j]
-            matrix[i][j] = matrix[i][N - j - 1]
-            matrix[i][N - j - 1] = temp
-    return matrix
+
+def rotate_2d_matrix(matrix):
+    """
+    matrix: 2D matrix of type List
+    """
+    number_row = len(matrix)
+    rotated_matrix = []
+    row_len = len(matrix[0])
+    index = 0
+    while index <= row_len - 1:
+        l = []
+        for row in matrix:
+            l.append(row[index])
+        rotated_matrix.append(l)
+        index += 1
+    for index in range(number_row):
+        matrix[index] = rotated_matrix[index]
+        matrix[index].reverse()
