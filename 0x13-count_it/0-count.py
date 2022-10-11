@@ -1,45 +1,53 @@
 #!/usr/bin/python3
-""" Count it module """
+"""
+    Parses the title of all hot articles, and prints a sorted
+    count of given keywords (case-insensitive, delimited by spaces.
+"""
+import json
+import re
 import requests
+import time
 
 
-def count_words(subreddit, word_list, after="", word_counter=None):
-    """
-    Count word appearance in subreddit
-    """
-    # initiate the counter dictionary
-    if word_counter is None:
-        word_counter = {item: 0 for item in word_list}
+def count_elements(request, word_list, results):
+    """ Counts number of elements """
+    for title in request['data']['children']:
+        datas = title['data']['title'].split(" ")
+        for i in range(len(datas)):
+            datas[i] = datas[i].lower()
+            if (datas[i] in word_list):
+                if (datas[i] in results.keys()):
+                    results[datas[i]] += word_list.count(datas[i])
+                else:
+                    results[datas[i]] = word_list.count(datas[i])
+    return results
 
-    # if last page
-    if after is None:
-        words = word_counter.items()
-        sorted_words = sorted(word, key=lambda x: x[1])[::-1]
-        for (key, value) in sorted_words:
-            if value != 0:
-                print("{}: {}".format(key, value))
-        return None
 
-    # at first the after param will be empty then supplied from data
-    params = {'after': after, 'limit': 100}
-    # the api url
-    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
-    res = requests.get(url=url, params=params, allow_redirects=False)
+def count_words(subreddit, word_list, results={}, param={'limit': 100}):
+    """ Main function to count and print the words """
+    baseLink = 'https://api.reddit.com/r/%s/hot.json' % subreddit
 
-    if res.status_code == 200:
-        # extract the json response of the data
-        data = res.json()
-        # extract the after keyword for next page in recursive call
-        after = data["data"]["after"]
-        # extract childrens
-        childrens = [child for child in data["data"]["children"]]
-        for child in childrens:
-            title = child["data"]["title"]
-            words = [words.lower() for words in title.split()]
-            for word in word_list:
-                word_counter[word] += words.count(word)
+    if ('after' not in param):
+        word_list = [str.lower() for str in word_list]
 
-        count_words(subreddit, word_list, after, word_counter)
+    link = baseLink
+    customHeaders = {'User-agent': 'HolbertonSchoolTask'}
+    r = requests.get(link, headers=customHeaders,
+                     params=param, allow_redirects=False)
+
+    if (r.status_code != 200):
+        return
+    data = r.content
+
+    data = json.loads(data.decode('utf-8'))
+    param = {'limit': 100, 'count': 100, 'after': data['data'].get('after')}
+    if (data['data'].get('after') is None):
+        results = count_elements(data, word_list, results)
+        results = sorted(
+            results.items(), key=lambda x: (-x[1], x[0]), reverse=False
+            )
+        for i in results:
+            print("{}: {}".format(i[0], i[1]))
     else:
-        # print(res.status_code)
-        return None
+        results = count_elements(data, word_list, results)
+        count_words(subreddit, word_list, results, param)
