@@ -45,7 +45,7 @@ def count_words(subreddit, word_list, results={}, param={'limit': 100}):
         results = count_elements(data, word_list, results)
         results = sorted(
             results.items(), key=lambda x: (-x[1], x[0]), reverse=False
-            )
+        )
         for i in results:
             print("{}: {}".format(i[0], i[1]))
     else:
