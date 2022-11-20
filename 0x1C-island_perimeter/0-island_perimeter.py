@@ -1,8 +1,8 @@
 #!/usr/bin/python3
+
 """
 island_perimiter
 """
-
 
 def island_perimeter(grid):
     peri = 0
