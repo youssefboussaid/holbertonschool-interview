@@ -22,4 +22,4 @@ def pascal_triangle(n):
                   value in enumerate(actual)]
         last = actual
         result.append(actual)
-    return
+    return result
